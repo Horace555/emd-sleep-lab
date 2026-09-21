@@ -45,7 +45,9 @@ git push -u origin main
 
 `<...>` 為需替換的值，不是本專案已有的真實網址。
 
-Repository 網址即為 GitHub 作業連結。另附 `.github/workflows/pages.yml`，若也要使用 GitHub Pages，至 Settings → Pages 選 GitHub Actions 作為來源，再推送 main 或手動執行 workflow。Pages 僅提供額外展示，不能取代題目要求的 Zeabur 部署網址。
+本專案已部署至 GitHub Pages，Settings → Pages 的來源為 GitHub Actions。`.github/workflows/pages.yml` 會在推送 main 時先執行 `npm test`，測試通過後發布 `dist/`。也可手動執行 workflow。
+
+依課程更新補充，本次以 GitHub Pages 作為 Zeabur 的替代展示平台。未購買 Zeabur 伺服器，也未部署 Cloudflare；老師範例的網站及 repository 並非本專案。
 
 ## Zeabur 部署
 
@@ -64,12 +66,12 @@ Repository 網址即為 GitHub 作業連結。另附 `.github/workflows/pages.ym
 
 ## 交作業網址
 
-只有平台成功建立並驗證後才能填寫：
+已於 2026-09-21 實際開啟並驗證：
 
-- 網站網址：待 Zeabur 實際部署完成。
-- GitHub 網址：待建立 repository 並推送原始碼。
+- 網站網址：https://horace555.github.io/emd-sleep-lab/
+- GitHub 原始碼：https://github.com/Horace555/emd-sleep-lab
 
-這些待填欄位不是已完成部署的宣稱，也不應用推測的 `zeabur.app` 或 GitHub 網址代替。
+網站可直接用瀏覽器操作，不需安裝 Node.js、下載檔案或讓自己的電腦保持開機。上方 Zeabur 步驟保留為未來選用的部署方式，不代表已部署至 Zeabur。
 
 ## 演算法與限制
 
@@ -94,7 +96,7 @@ npm test
 
 測試包括：單一正弦波保留、相隔尺度成分分離（排除端點後相關性）、各情境重建 RMSE、單調訊號與常數訊號、有限值與迭代上限、固定亂數重現。
 
-本版通過數值測試和 JavaScript 語法檢查。正式部署後仍需在實際網址確認瀏覽器互動及手機排版。測試不是臨床驗證。
+本版通過數值測試和 JavaScript 語法檢查；GitHub Actions 的測試及部署亦通過。已在正式網址確認情境切換、逐次篩分、訊號振幅滑桿、AM 調變滑桿與桌面畫面。手機實機排版尚未測試。測試不是臨床驗證。
 
 ## 文獻
 
