@@ -1,0 +1,8 @@
+{
+  "name": "emd-sleep-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive EMD and sleep research teaching website",
+  "scripts": {"start": "node server.js", "test": "node tests/emd.test.js"},
+  "engines": {"node": ">=22"}
+}
