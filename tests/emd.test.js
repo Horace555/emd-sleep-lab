@@ -45,5 +45,5 @@ for(const rate of [0,-1,NaN,5001])assert.throws(()=>L.parseCSV(periodic.join('\n
 const html=require('node:fs').readFileSync(require('node:path').join(__dirname,'../dist/index.html'),'utf8');
 const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length,'unique IDs');
 for(const m of html.matchAll(/href="#([^"]+)"/g))assert.ok(ids.includes(m[1]),'anchor '+m[1]);
-for(const m of html.matchAll(/(?:src|href)="([^"#:]+\.(?:js|css|svg))"/g))assert.ok(require('node:fs').existsSync(require('node:path').join(__dirname,'../dist',m[1])),'asset '+m[1]);
+for(const m of html.matchAll(/(?:src|href)="([^"#:?]+\.(?:js|css|svg))(?:\?[^\"]*)?"/g))assert.ok(require('node:fs').existsSync(require('node:path').join(__dirname,'../dist',m[1])),'asset '+m[1]);
 console.log('PASS: all-mode traces, stop decisions, selected reconstruction, Hilbert frequency and AM envelope, zero and noisy signals, CSV validation, page anchors/assets');
