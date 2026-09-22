@@ -31,20 +31,21 @@
   return {input:x.slice(),upper,lower,mean,h,extrema:e,sd,meanRatio,difference};
  }
  function decompose(x,{maxModes=6,maxSift=30,tolerance=.05}={}){
-  let residue=x.slice();const modes=[],meta=[],trace=[];
+  let residue=x.slice();const modes=[],meta=[],trace=[],traces=[];
   for(let m=0;m<maxModes;m++){
    const e=extrema(residue);if(e.max.length<2||e.min.length<2||energy(residue)<1e-20)break;
-   let h=residue.slice(),last=null,stable=0,converged=false,count=0;
+   let h=residue.slice(),last=null,stable=0,converged=false,count=0;const modeTrace=[];
    for(let k=0;k<maxSift;k++){
-    const step=sift(h);if(!step)break;count++;if(m===0)trace.push(step);h=step.h;last=step;
+    const step=sift(h);if(!step)break;count++;if(m===0)trace.push(step);modeTrace.push(step);h=step.h;last=step;
     stable=step.meanRatio<tolerance&&step.difference<=1?stable+1:0;
+    step.stable=stable;
     if(stable>=2){converged=true;break;}
    }
-   if(!last)break;modes.push(h);meta.push({count,converged,meanRatio:last.meanRatio,difference:last.difference});residue=residue.map((v,i)=>v-h[i]);
+   if(!last)break;modes.push(h);traces.push(modeTrace);meta.push({count,converged,meanRatio:last.meanRatio,difference:last.difference});residue=residue.map((v,i)=>v-h[i]);
   }
   const reconstruction=residue.map((v,i)=>v+modes.reduce((s,c)=>s+c[i],0));
   const rmse=Math.sqrt(energy(x.map((v,i)=>v-reconstruction[i]))/x.length);
-  return {modes,residue,meta,trace,reconstruction,rmse};
+  return {modes,residue,meta,trace,traces,reconstruction,rmse};
  }
  function generate({slow=30,fast=20,freq=13,noise=2,burst=true,center=3,seed=42}={}){
   const fs=128,n=768;let state=seed>>>0;
